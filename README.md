@@ -3,10 +3,12 @@ This repository is the official implementation of the CVPR 2025 paper ["Point-Ca
 
 ## Overview
 ![](assets/architecture.png)
+
 This paper proposes a general solution to enable point cloud recognition models to handle distribution shifts at test time. Unlike prior methods, which rely heavily on training data—often inaccessible during online inference—and are limited to recognizing a fixed set of point cloud classes predefined during training, we explore a more practical and challenging scenario: adapting the model solely based on online test data to recognize both previously seen classes and novel, unseen classes at test time. To this end, we develop **Point-Cache**, a hierarchical cache model that captures essential clues of online test samples, particularly focusing on the global structure of point clouds and their local-part details. Point-Cache, which serves as a rich 3D knowledge base, is dynamically managed to prioritize the inclusion of high-quality samples. Designed as a plug-and-play module, our method can be flexibly integrated into large multimodal 3D models to support open-vocabulary point cloud recognition. Notably, our solution operates with efficiency comparable to zero-shot inference, as it is entirely training-free. Point-Cache demonstrates substantial gains across 8 challenging benchmarks and 4 representative large 3D models, highlighting its effectiveness. 
 
 ## Motivation
 ![](assets/motivation.png)
+
 In recent years, 3D sensors such as LiDARs and RGB-D cameras have been widely adopted in robotics and electric vehicles for their ability to provide reliable 3D geometry measurements. Point clouds are among the most direct data formats produced by these 3D sensors. Although remarkable progress has been made in 3D point cloud recognition, the success is primarily based on the assumption that the test data and the model training data are identically distributed. However, this assumption is frequently violated in real-world scenarios due to complex geometries, as well as sensing and processing errors. 
 
 In practice, a majority of models remain vulnerable to distribution shifts, such as out-of-distribution (OOD) samples, data corruptions, and more. As shown in the above figure, notable performance gaps (\eg, 11+\%) occur when models are tested on clean (ModelNet) versus corrupted data (ModelNet-C). And similar observations applies to  ScanObjNN vs. ScanObjNN-C. 
@@ -54,9 +56,11 @@ In practice, a majority of models remain vulnerable to distribution shifts, such
     * [Uni3D](https://github.com/baaivision/Uni3D)
 
     - **NOTE:** 
-        1. ULIP-2 uses same text encoder as ULIP
+        1. ULIP-2 uses the same [text encoder](https://huggingface.co/datasets/auniquesun/Point-PRC/tree/main/pretrained-weights/ulip/image-text-encoder) as ULIP
         2. For OpenShape, we use the [pointbert-vitg14-rgb](https://huggingface.co/OpenShape/openshape-pointbert-vitg14-rgb/tree/main) version
+            - For text encoder in OpenShape, we use [CLIP-ViT-bigG-14-laion2B-39B-b160k](https://huggingface.co/laion/CLIP-ViT-bigG-14-laion2B-39B-b160k) from **huggingface laion**
         3. For Uni3D, we use the [uni3d-g](https://huggingface.co/BAAI/Uni3D/tree/main/modelzoo/uni3d-g) version
+            - For text encoder in Uni3D, we use [eva02_enormous_patch14_plus_clip_224.laion2b_s9b_b144k](https://huggingface.co/timm/eva02_enormous_patch14_plus_clip_224.laion2b_s9b_b144k) from **huggingface timm**
 
 2. Make a folder called `weights` under this project and save the pre-trained weights into this folder. 
 
