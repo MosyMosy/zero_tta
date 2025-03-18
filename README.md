@@ -1,5 +1,5 @@
 # Point-Cache
-This repository is the official implementation of the CVPR 2025 paper ["Point-Cache: Test-time Dynamic and Hierarchical Cache for Robust and Generalizable Point Cloud Analysis"](https://github.com/auniquesun/Point-Cache).
+This repository is the official implementation of the CVPR 2025 paper ["Point-Cache: Test-time Dynamic and Hierarchical Cache for Robust and Generalizable Point Cloud Analysis"](http://arxiv.org/abs/2503.12150).
 
 ## Overview
 ![](assets/architecture.png)
