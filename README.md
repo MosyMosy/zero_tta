@@ -86,8 +86,10 @@ In practice, a majority of models remain vulnerable to distribution shifts, such
     ...
 ```
 
-2. You can find the download links of above datasets from our [huggingface dataset repository](https://huggingface.co/datasets/auniquesun/Point-Cache). 
-
+2. You can find the download links of the above datasets from our **huggingface dataset repositories** as follows.
+    - [Link](https://huggingface.co/datasets/auniquesun/Point-PRC/tree/main/new-3ddg-benchmarks/xset/corruption) for `modelnet_c` and `sonn_c`
+    - [Link](https://huggingface.co/datasets/auniquesun/Point-PRC/tree/main/new-3ddg-benchmarks/xset/dg) for `omniobject3d`
+    - [Link](https://huggingface.co/datasets/auniquesun/Point-Cache/tree/main) for `modelnet40`, `scanobjnn`, and `objaverse_lvis`
 
 ## Usage
 Point-Cache is totally *training-free* and can operate in comparable efficiency with zero-shot inference of large multi-modal 3D models. Users can reproduce the results presented in the paper by directly inferring on the test datasets, as explained below. 
@@ -190,14 +192,15 @@ Point-Cache is totally *training-free* and can operate in comparable efficiency 
 4. You can refer to `scripts/eval_model_with_global_cache.sh` and `scripts/eval_model_with_hierarchical_caches.sh` on how to obtain the results of large 3D models with global/hierarchical cache.
 
 ## Citation
-```bibtex
+1. If you find our paper and code are helpful for your project or research, please cite our work as follows.  
+    ```bibtex
     @inproceedings{sun25pointcache,
         title={Point-Cache: Test-time Dynamic and Hierarchical Cache for Robust and Generalizable Point Cloud Analysis},
         author={Sun, Hongyu and Ke, Qiuhong and Cheng, Ming and Wang, Yongcai and Li, Deying and Gou, Chenhui and Cai, Jianfei},
         booktitle={2025 IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
         year={2025}
     }
-```
+    ```
 
 ## Acknowledgement
 Our implementation is partially inspired by the following projects, thanks to their great work.
