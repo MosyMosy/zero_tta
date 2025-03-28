@@ -27,8 +27,8 @@ In practice, a majority of models remain vulnerable to distribution shifts, such
 ```sh
   # NOTE The option 1 is recommended. A complete package list is provided in `env.yaml`
   # option 1: create conda virtual env by your own
-  conda create -n pointcache python=3.8.16
-  codna activate pointcache
+  conda create -n zero_tta python=3.8.16
+  codna activate zero_tta
   # install torch
   pip install torch==1.12.0+cu116 torchvision==0.13.0+cu116 --extra-index-url https://download.pytorch.org/whl/cu116
   # install dassl

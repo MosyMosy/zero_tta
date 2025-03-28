@@ -92,16 +92,16 @@ def get_arguments():
 
     # data
     parser.add_argument('--dataset', default='modelnet40', type=str, help="Datasets to process")
-    parser.add_argument('--data-root', dest='data_root', type=str, default='./data/', help='Path to the datasets directory. Default is ./dataset/')
-    parser.add_argument('--objaverse_lvis_root', type=str, default='data/objaverse_lvis', help='')
-    parser.add_argument('--omniobject3d_root', type=str, default='data/omniobject3d', help='')
-    parser.add_argument('--scanobjnn_root', type=str, default='data/scanobjnn', help='')
+    # parser.add_argument('--data-root', dest='data_root', type=str, default='./data/', help='Path to the datasets directory. Default is ./dataset/')
+    parser.add_argument('--objaverse_lvis_root', type=str, default='/export/datasets/public/3d/zero_shot/Point-Cache/objaverse_lvis', help='')
+    parser.add_argument('--omniobject3d_root', type=str, default='sftp://Myazdanpanah@bool6.livia.etsmtl.ca/export/datasets/public/3d/zero_shot/Point-PRC-full/new-3ddg-benchmarks/xset/dg/omniobject3d', help='')
+    parser.add_argument('--scanobjnn_root', type=str, default='/export/datasets/public/3d/zero_shot/Point-Cache/scanobjnn', help='')
     parser.add_argument('--scanobjectnn_root', type=str, default='data/scanobjectnn', help='')
-    parser.add_argument('--sonn_c_root', type=str, default='data/sonn_c', help='')
+    parser.add_argument('--sonn_c_root', type=str, default='/export/datasets/public/3d/zero_shot/Point-PRC-full/new-3ddg-benchmarks/xset/corruption/sonn_c', help='')
     parser.add_argument('--sonn_variant', type=str, default='hardest', help='')
-    parser.add_argument('--modelnet40_root', type=str, default='data/modelnet40', help='')
-    parser.add_argument('--modelnet_c_root', type=str, default='data/modelnet_c', help='')
-    parser.add_argument('--modelnet40_c_root', type=str, default='data/modelnet40_c', help='')
+    parser.add_argument('--modelnet40_root', type=str, default='/export/datasets/public/3d/zero_shot/Point-Cache/modelnet40', help='')
+    parser.add_argument('--modelnet_c_root', type=str, default='/export/datasets/public/3d/zero_shot/Point-PRC-full/new-3ddg-benchmarks/xset/corruption/modelnet_c', help='')
+    parser.add_argument('--modelnet40_c_root', type=str, default='/export/datasets/public/3d/zero_shot/Point-PRC-full/new-3ddg-benchmarks/xset/corruption/modelnet40_c', help='')
     parser.add_argument('--snv2_c_root', type=str, default='data/snv2_c', help='')
     parser.add_argument('--cor_type', type=str, default='add_global_2', help='data corruption type')
     parser.add_argument('--sim2real_type', type=str, default='so_obj_only_9', choices=['so_obj_only_9', 'so_obj_only_11', 
@@ -553,7 +553,7 @@ def count_params(clip_model, lm3d_model):
     
 def load_uni3d(args):
     # 0. create CLIP model and load its weights
-    open_clip_model, _, _ = open_clip.create_model_and_transforms(model_name=args.clip_model, pretrained=args.pretrained, device='cpu') 
+    open_clip_model, _, _ = open_clip.create_model_and_transforms(model_name=args.clip_model, pretrained="weights/uni3d/open_clip_pytorch_model.bin", device='cpu') #args.pretrained
 
     # remove the image encoder weights 
     clip_state_dict = open_clip_model.state_dict()
@@ -595,7 +595,7 @@ def load_openshape(args):
     if args.oshape_version == 'vitg14':
         clip_name = 'ViT-bigG-14'
         open_clip_model, _, _ = open_clip.create_model_and_transforms(clip_name, 
-                                pretrained='weights/openshape/open_clip_pytorch_model/vit-bigG-14/laion2b_s39b_b160k.bin')
+                                pretrained='weights/openshape/open_clip_pytorch_model/vit-bigG-14/open_clip_pytorch_model.bin')
     elif args.oshape_version == 'vitl14':
         clip_name = 'ViT-L-14'
         open_clip_model, _, _ = open_clip.create_model_and_transforms(clip_name, 
@@ -648,7 +648,7 @@ def load_ulip(args):
     # print(clip_model_sd['ln_final.bias'].shape, '\n')
     # print(clip_model_sd['ln_final.bias'], '\n')
     
-    pretrain_slip = torch.load(args.slip_ckpt_path, map_location=torch.device('cpu'))
+    pretrain_slip = torch.load("weights/ulip/slip_base_100ep.pt", map_location=torch.device('cpu')) #args.slip_ckpt_path
     pretrain_slip_sd = pretrain_slip['state_dict']
     pretrain_slip_sd = {k.replace('module.', ''): v for k, v in pretrain_slip_sd.items()}
     pretrain_slip_sd = {k:v for k,v in pretrain_slip_sd.items()
